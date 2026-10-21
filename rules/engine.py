@@ -74,8 +74,7 @@ class MarketContext(BaseModel):
             liquidity pools). None en LIVE (comportement inchangé,
             l'horloge réelle est utilisée) -- réservé au backtest, qui
             doit pouvoir rejouer ces règles à un instant simulé sans
-            fuiter l'horloge réelle du conteneur (voir CLAUDE.md,
-            correctif du backtest intraday). Any tz acceptée en entrée,
+            fuiter l'horloge réelle du conteneur. Any tz acceptée en entrée,
             convertie en NY_TZ par l'appelant.
     """
 

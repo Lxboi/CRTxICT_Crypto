@@ -442,7 +442,7 @@ def _check_position_protection(
 ) -> None:
     """
     Vérifie, à CHAQUE cycle, que les positions RÉELLEMENT ouvertes sur
-    l'exchange (owner + utilisateurs tiers) ont bien un stop-loss et
+    l'exchange (votre compte Kraken) ont bien un stop-loss et
     des take-profits actifs — et répare automatiquement sinon (voir
     execution/engine.py::check_and_repair_position_protection).
 
@@ -671,7 +671,7 @@ def _move_breakeven_and_notify_on_failure(
     observée en réel sur DOT le 12/08) : un échec de déplacement du SL
     au Breakeven n'était jusqu'ici JAMAIS retenté (une seule tentative,
     au cycle exact où TP1 est franchi) ni notifié (seulement loggé) --
-    voir accounts/admin_notifications.py::notify_breakeven_failed pour
+    voir execution/admin_notifications.py::notify_breakeven_failed pour
     le détail. Marque désormais l'alerte pour retentative automatique
     à chaque cycle (voir _check_pending_breakeven ci-dessous) en plus
     de la notification immédiate.

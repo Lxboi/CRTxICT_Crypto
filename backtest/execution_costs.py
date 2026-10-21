@@ -23,8 +23,7 @@ backtest/realistic_backtest.py) a besoin de ce risk_amount explicite.
 
 Barèmes par défaut (taker, en % du notionnel, PAR JAMBE) -- valeurs
 publiques approximatives au 14/08/2026, À AJUSTER si les grilles
-tarifaires réelles changent (voir CLAUDE.md, section Exchanges
-supportés, pour le détail par venue) : Kraken Futures ~0.05%, Binance
+tarifaires réelles changent : Kraken Futures ~0.05%, Binance
 USDⓈ-M ~0.04-0.05%, OKX X-Perps ~0.05%. IBKR facture une commission PAR
 CONTRAT (structure radicalement différente d'un pourcentage du
 notionnel) -- NON modélisée ici faute de données de contrat

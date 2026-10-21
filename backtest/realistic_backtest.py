@@ -10,8 +10,7 @@ détection", filtre R:R minimum, et position sizing/levier réels
 trade après trade -- au lieu du R-multiple géométrique indépendant de
 la taille de compte produit par backtest/intraday_trade_tracker.py.
 
-Simplifications assumées pour cette v1 (voir CLAUDE.md, section Phase 3
-pour le détail et la justification à l'utilisateur) :
+Simplifications assumées pour cette v1 :
   - Un seul actif à la fois, capital dédié -- pas de portefeuille
     partagé entre plusieurs actifs suivis en parallèle (amélioration
     future distincte, déjà notée comme telle dans le plan initial).

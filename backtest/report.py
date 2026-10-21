@@ -264,7 +264,7 @@ def print_monte_carlo_summary(
         )
         print(
             "  (comparaison informative -- une seule séquence historique n'est qu'UN tirage possible "
-            "parmi tous ceux simulés ci-dessus ; pas d'égalité exacte attendue, voir CLAUDE.md.)"
+            "parmi tous ceux simulés ci-dessus ; pas d'égalité exacte attendue.)"
         )
     print("=" * 60)
 

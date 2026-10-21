@@ -7,9 +7,8 @@ dépendre d'un exchange précis ici.
 
 Implémentation concrète disponible : kraken_client.py (voir
 client_factory.py -- seul exchange supporté depuis la simplification
-architecture crypto-only, août 2026). N'a jamais tourné contre l'API
-réelle (pas d'accès réseau côté Claude) — testez avec des montants
-minuscules (ou l'environnement démo Kraken Futures si disponible)
+architecture crypto-only, août 2026). Testez toute modification avec
+des montants minuscules (ou l'environnement démo Kraken Futures)
 avant tout usage avec de vrais fonds.
 """
 

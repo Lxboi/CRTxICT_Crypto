@@ -124,7 +124,7 @@ def _warn_if_insufficient_m15_history(raw_m15: list, years_requested: int, sourc
     ~35 000/an. Symptôme le plus probable côté Polygon (Forex/CFD) : le
     plan gratuit ne fournit peut-être pas assez de profondeur intraday
     (voir backtest/historical_loader.py::fetch_paginated_intraday_polygon,
-    non vérifié empiriquement faute de clé API disponible côté Claude --
+    non vérifié empiriquement faute de clé API utilisée pendant le développement --
     à valider par vous avant de vous fier à un backtest Polygon long).
     """
     expected_min_per_year = 96 * 200  # marge large : jours ouvrés seulement, avec tolérance
@@ -227,8 +227,8 @@ def main() -> None:
             "Surcharge execution.reserved_balance_pct (config/alerts.yaml) pour CE backtest "
             "uniquement -- ⚠️ en LIVE, cette réserve protège contre un mouvement de prix "
             "défavorable avant liquidation ET laisse de la marge pour vos AUTRES positions "
-            "simultanées (~22 actifs suivis sur le même solde réel) -- ce backtest, lui, simule "
-            "chaque actif avec un capital totalement indépendant (voir CLAUDE.md, Phase 3), donc "
+            "simultanées (plusieurs actifs suivis sur le même solde réel) -- ce backtest, lui, simule "
+            "chaque actif avec un capital totalement indépendant (voir backtest/realistic_backtest.py), donc "
             "il ne modélise PAS cette contention entre actifs : mettre 0 ici est sûr pour "
             "EXPLORER l'effet sur le levier calculé, mais n'implique pas que 0 soit sûr à "
             "appliquer tel quel dans config/alerts.yaml (execution réelle multi-actifs). "
@@ -300,7 +300,7 @@ def main() -> None:
             "(Distribution/Modèle 1-4/TSQ) disponible au moment de la détection -- non utilisée "
             "pour le prix simulé ci-dessus (voir backtest/intraday_simulator.py, entrée au marché "
             "par défaut, comme main.py hors cas TSQ Weekly post-TP1) -- ce raffinement reste hors "
-            "périmètre du backtest réaliste ci-dessous (voir CLAUDE.md, section Phase 3)."
+            "périmètre du backtest réaliste ci-dessous (voir backtest/realistic_backtest.py)."
         )
 
     safe_label = label.replace(":", "_")

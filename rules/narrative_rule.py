@@ -17,7 +17,7 @@ plusieurs briques :
      partir du calendrier fourni (voir _get_economic_calendar_context()
      ci-dessous), limité au FAIT BRUT (aucune analyse d'impact
      haussier/baissier — ce type d'interprétation a été testé via une
-     IA dédiée puis abandonné, voir CLAUDE.md).
+     IA dédiée puis abandonné).
   4. SMT (Smart Money Divergence) — compare l'actif à sa paire
      corrélée (voir _get_smt_context() ci-dessous et
      rules/correlation.py), purement informatif (n'influence jamais
@@ -598,7 +598,7 @@ def _get_economic_calendar_context(
     aujourd'hui") : cette fonction ne tente aucune analyse d'impact
     haussier/baissier — ce type d'interprétation avait été envisagé via
     une IA dédiée, testée puis entièrement retirée du pipeline (jugée
-    trop imprécise, voir CLAUDE.md) ; aucune IA ne l'effectue donc plus
+    trop imprécise) ; aucune IA ne l'effectue donc plus
     nulle part dans le projet.
 
     Returns:

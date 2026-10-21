@@ -6,7 +6,7 @@ rejoue la VRAIE logique de décision live (rules/decision_engine.py::
 DecisionEngine.decide(), donc EntryRule/TsqRule/PurgeRule/CRT sur
 Monthly/Weekly/Daily/4H/intraday/m15), au lieu du biais Daily seul + cibles
 CRT du simulateur historique (backtest/simulator.py) — qui ne teste PAS
-les règles d'entrée réelles du bot (voir CLAUDE.md, section Phase 2).
+les règles d'entrée réelles du bot.
 
 Différence clé avec backtest/simulator.py::run_simulation() : celui-ci
 NE FOURNIT jamais de série "intraday"/"m15" à DecisionEngine -> PurgeRule
@@ -17,8 +17,7 @@ critère de timing) et Monthly (pas de filtre de purge défini) peuvent
 jamais produire entry_recommended=True dans l'ancien simulateur. Ce
 nouveau simulateur, en fournissant de vraies données m15, débloque
 Daily et 4H — d'où un nombre de trades détectés généralement bien
-supérieur (attendu, pas un bug — voir CLAUDE.md pour une comparaison
-chiffrée).
+supérieur (attendu, pas un bug).
 
 Prix d'entrée / SL / TP simulés : réplique le chemin par défaut RÉEL de
 main.py::run_once() (voir son dispatch_alert()) — dès qu'un

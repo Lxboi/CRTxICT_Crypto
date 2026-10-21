@@ -1,6 +1,6 @@
 # CRTxICT Crypto
 
-![tests](https://github.com/<VOTRE_USER>/CRTxICT_Crypto/actions/workflows/tests.yml/badge.svg)
+![tests](https://github.com/Lxboi/CRTxICT_Crypto/actions/workflows/tests.yml/badge.svg)
 ![python](https://img.shields.io/badge/python-3.12-blue)
 ![docker](https://img.shields.io/badge/deploy-Docker%20%7C%20Raspberry%20Pi-informational)
 
@@ -71,14 +71,14 @@ flowchart LR
 | `backtest/` | Simulateur intraday, coûts réels, Monte Carlo, rapports |
 | `tests/` | Suite `pytest` (un fichier par module) |
 
-Les notes de conception détaillées (décisions, bugs réels rencontrés et
-corrigés) sont dans [`CLAUDE.md`](CLAUDE.md) et
-[`PROJECT_STATUS.md`](PROJECT_STATUS.md).
+Le fonctionnement détaillé de la stratégie (cascade de biais, setups CRT,
+entrées, garde-fous, cycle de vie d'un trade), illustré par des schémas,
+est décrit dans [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
 
 ## Démarrage rapide
 
 ```bash
-git clone https://github.com/<VOTRE_USER>/CRTxICT_Crypto.git
+git clone https://github.com/Lxboi/CRTxICT_Crypto.git
 cd CRTxICT_Crypto
 python -m venv .venv
 source .venv/bin/activate        # Windows : .venv\Scripts\activate
@@ -126,5 +126,4 @@ loguru · pytest · Docker · GitHub Actions
 
 ## Auteur
 
-**<Votre nom>** — [LinkedIn](https://www.linkedin.com/in/<profil>) ·
-[Portfolio](https://<site>)
+**Enzo-LIBOÏ** — [LinkedIn](https://www.linkedin.com/in/enzo-libo%C3%AF/) · [GitHub](https://github.com/Lxboi)

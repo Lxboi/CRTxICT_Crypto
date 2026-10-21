@@ -273,14 +273,14 @@ def fetch_paginated_intraday_polygon(
     limitation de débit supplémentaire nécessaire ici.
 
     ⚠️ IMPORTANT -- non vérifié en conditions réelles à ce jour (aucune
-    clé POLYGON_API_KEY disponible côté Claude) : la PROFONDEUR
+    clé POLYGON_API_KEY utilisée pendant le développement) : la PROFONDEUR
     D'HISTORIQUE réellement disponible en 15 min sur le plan Polygon
     gratuit est inconnue -- pourrait être bien plus courte que les ~2
     ans documentés pour le Daily (les plans gratuits limitent
     généralement l'intraday plus sévèrement que le end-of-day). Si le
     volume de bougies renvoyées est nettement inférieur à ce qui est
-    demandé, envisager le repli sur London Strategic Edge évoqué avec
-    l'utilisateur, plutôt que de considérer ce résultat comme fiable
+    demandé, envisager une autre source de données m15 (ex. London
+    Strategic Edge), plutôt que de considérer ce résultat comme fiable
     tel quel.
 
     Args:

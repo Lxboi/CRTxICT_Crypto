@@ -63,7 +63,7 @@ def try_execute_entry(
     except Exception as e:
         logger.exception(f"[{symbol}] Impossible de récupérer le solde du compte — ordre annulé par sécurité.")
         # Message d'erreur RÉEL conservé (pas un texte générique) :
-        # nécessaire pour que accounts/api_health.py::is_auth_failure()
+        # nécessaire pour que execution/api_health.py::is_auth_failure()
         # puisse détecter une panne d'authentification (clé révoquée)
         # et déclencher la notification correspondante.
         return OrderResult(success=False, order_id=None, filled_price=None, filled_quantity=None,

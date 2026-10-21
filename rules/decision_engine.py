@@ -5,7 +5,8 @@ DecisionEngine : orchestre toutes les règles métier selon la
 méthodologie du projet (4 phases) :
 
   1. Cascade de biais Monthly -> Weekly -> Daily (_resolve_timeframe_bias) :
-     à chaque niveau, priorité cassure de biais > CRT > double purge. On
+     à chaque niveau, priorité CRT valide > cassure de biais (la double
+     purge n'est qu'une confirmation, pas un vote autonome). On
      ne descend d'une timeframe que si la précédente n'offre rien de
      clair, avec une confiance réduite à chaque descente (voir
      bias_source_timeframe sur DecisionReport).

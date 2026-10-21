@@ -26,9 +26,6 @@ Usage :
     python manage_execution.py --enable                    # active pour vous (_owner)
     python manage_execution.py --disable                   # désactive pour vous
     python manage_execution.py --status                    # votre état
-    python manage_execution.py --enable --user alice        # active pour l'utilisateur alice
-    python manage_execution.py --disable --user alice       # désactive pour alice uniquement
-    python manage_execution.py --status --user alice        # état d'alice
 """
 
 from __future__ import annotations
