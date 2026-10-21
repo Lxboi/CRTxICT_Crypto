@@ -1,0 +1,144 @@
+# config/alerts.yaml
+#
+# Paramètres de configuration pour toutes les règles métier
+# (rules/*.py) et pour l'orchestration (main.py). Chargé par
+# yaml.safe_load() dans main.py et transmis tel quel (dict) à
+# DecisionEngine, qui le propage à chaque règle individuelle.
+#
+# Toutes les valeurs ci-dessous sont les valeurs par défaut déjà en dur
+# dans le code (DEFAULT_* de chaque module) — ce fichier ne fait que les
+# rendre explicites et modifiables sans toucher au code.
+#
+# --- Simplification architecture (août 2026) : robot recentré crypto
+# uniquement (Binance pour la collecte/analyse, Kraken pour l'exécution
+# de VOTRE compte uniquement) -- IBKR/OKX/Binance-exécution et le
+# multi-utilisateur/facturation ont été retirés. Les collecteurs
+# collectors/polygon.py (Forex/CFD) restent dans le repo, disponibles
+# pour un usage futur, mais aucun actif n'y est plus configuré ici.
+
+dol_rule:
+  double_purge_window: 5
+  double_purge_window_monthly: 3   # contrainte API (~3 mois d'historique Monthly)
+  swing_lookback: 5
+  equilibrium_band_pct: 0.1
+  min_candles_required: 5
+
+crt_rule:
+  min_candles_required: 3
+
+keylevel_rule:
+  swing_lookback: 5
+  displacement_multiplier: 1.5
+  rejection_wick_ratio: 0.5
+  proximity_threshold_pct: 0.3
+  min_candles_required: 8
+
+narrative_rule:
+  range_threshold_pct: 0.5
+  expansion_threshold_pct: 1.0
+  purge_min_excursion_pct: 0.3
+  swing_lookback: 5
+  equilibrium_band_pct: 0.1
+  min_days_for_trigger: 2
+  pre_week_lookback: 30
+
+narrative_ltf_rule:
+  range_threshold_pct: 0.3
+  expansion_threshold_pct: 0.8
+  purge_min_excursion_pct: 0.15
+  pre_day_lookback: 20
+  swing_lookback: 5
+  equilibrium_band_pct: 0.1
+  min_sessions_for_trigger: 2
+  min_candles_required: 20
+  double_purge_window: 5
+
+purge_rule:
+  # asset_category retiré (août 2026) : résolu automatiquement par
+  # symbole via resolve_asset_category() dans purge_rule.py -- depuis la
+  # simplification crypto-only, toujours "crypto" pour tous les actifs
+  # suivis (voir commentaire dans purge_rule.py). Rien à configurer ici
+  # pour ce champ.
+  timing_tolerance_hours: 1
+  min_candles_required: 20
+
+# --- Orchestration (main.py) ---
+orchestration:
+  poll_interval_minutes: 10
+  klines_limit: 1000           # nombre de bougies demandées par timeframe (1000 = max Binance par requête)
+  market: futures               # "spot" ou "futures" -- source des donnees Binance pour la COLLECTE
+                                 # ET L'ANALYSE (pas seulement l'execution). "futures" = contrats a
+                                 # terme USDⓈ-M (fapi.binance.com), coherent avec l'execution en
+                                 # contrats a terme -- prix legerement differents du Spot (funding,
+                                 # base), voir collectors/binance.py.
+
+  # --- Actifs suivis, par source de données ---
+  # "binance" (crypto, gratuit, sans clé) -- seule source active depuis
+  # la simplification crypto-only. collectors/polygon.py reste disponible
+  # dans le repo pour un usage Forex/CFD futur, mais aucun actif "polygon"
+  # n'est configuré ici pour le moment.
+  assets:
+    BTC: {source: binance, ticker: BTCUSDT}
+    ETH: {source: binance, ticker: ETHUSDT}
+    ADA: {source: binance, ticker: ADAUSDT}
+    TRX: {source: binance, ticker: TRXUSDT}
+    BNB: {source: binance, ticker: BNBUSDT}
+    DOT: {source: binance, ticker: DOTUSDT}
+    SUI: {source: binance, ticker: SUIUSDT}
+
+  # --- Appariement SMT fixe ---
+  # BTC reste ancré à ETH pour son SMT, quoi que trouve la recherche
+  # dynamique ci-dessous (main.py::run_once utilise dict.setdefault :
+  # un appariement déjà présent ici n'est jamais écrasé).
+  # Pour tous les AUTRES actifs (ADA, TRX, BNB, DOT, SUI), la recherche
+  # dynamique ci-dessous scanne déjà TOUTES les paires possibles entre
+  # eux et retient automatiquement la meilleure corrélation trouvée
+  # chaque cycle — rien à ajouter ici pour ça, c'est déjà actif (voir
+  # rules/correlation.py::find_correlated_pairs).
+  correlated_pairs:
+    BTC: ETH
+    ETH: BTC
+
+  # --- Recherche de corrélations dynamique (rules/correlation.py) ---
+  # Couvre TOUTES les paires parmi les actifs suivis (ex: ADA<->DOT,
+  # TRX<->BNB...), utilisée pour la détection de divergence SMT
+  # (rules/narrative_rule.py::_get_smt_context) sur n'importe quel actif.
+  dynamic_correlation_enabled: true
+  correlation_threshold: 0.7   # seuil |r| au-delà duquel une paire est retenue pour le SMT
+
+# --- Exécution automatique des positions (execution/) ---
+# Désactivée par défaut, quoi qu'il arrive (execution/kill_switch.py) --
+# ce réglage ne fait que définir les PARAMÈTRES utilisés SI le
+# kill-switch est activé manuellement via manage_execution.py --enable.
+# Mono-compte (VOUS uniquement) sur Kraken depuis la simplification
+# architecture (août 2026) -- IBKR/OKX/Binance-exécution et le
+# multi-utilisateur/facturation tiers ont été retirés.
+execution:
+  risk_pct_per_trade: 2   # % du capital risqué par trade (voir execution/position_sizing.py)
+                             # -- volontairement eleve dans un premier temps, a ajuster ensuite
+  min_risk_reward_ratio: 1.5  # R:R minimum pour EXECUTER un trade reel (pas pour la notification,
+                              # qui reste envoyee dans tous les cas) -- un setup avec un R:R en
+                              # dessous (ex: 1:0.2) est notifie mais jamais execute automatiquement
+  reserved_balance_pct: 10.0  # % du solde JAMAIS utilise comme marge (voir execution/position_sizing.py
+                              # ::compute_required_leverage) -- sans cette reserve, une SEULE position
+                              # peut par construction consommer la quasi-totalite du solde comme marge
+                              # (le levier est calcule pour occuper tout le solde disponible), ne
+                              # laissant plus rien pour d'autres trades simultanes sur d'autres actifs
+                              # suivis (cas reel observe : 500 -> 107 disponibles sur une seule
+                              # position TRX). Si le levier necessaire depasse le plafond a cause de
+                              # cette reserve, l'ordre est refuse proprement (jamais entame la reserve).
+  exchange: "kraken"         # VOTRE exchange -- "kraken" = Kraken FUTURES (pas Spot/Marge,
+                             # cles API separees, voir execution/kraken_client.py). Plafond
+                             # de levier correspondant dans execution.exchanges ci-dessous.
+
+  # --- Plafond de levier (voir execution/position_sizing.py::
+  # compute_required_leverage) -- Kraken uniquement depuis la
+  # simplification (VOTRE compte uniquement, plus de multi-exchange/
+  # multi-utilisateur).
+  exchanges:
+    kraken:
+      max_leverage: 10.0   # Kraken FUTURES (pas Spot/Marge) -- leviers PAR ORDRE via
+                            # leveragepreferences (execution/kraken_client.py), fixe et
+                            # toujours disponible dans la limite du contrat -- verifiez le
+                            # maximum reel du contrat PF_XBTUSD (et des autres) sur Kraken
+                            # avant de monter ce chiffre

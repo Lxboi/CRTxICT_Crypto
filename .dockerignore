@@ -1,0 +1,30 @@
+# .dockerignore
+#
+# Sans ce fichier, `COPY . .` dans le Dockerfile copierait TOUT dans
+# l'image -- y compris .env (vos vrais secrets, qui se retrouveraient
+# alors figés dans une couche de l'image, un vrai risque si l'image
+# est un jour poussée vers un registre, même privé) et vos données
+# locales déjà présentes (bases SQLite, logs, état d'exécution), qui
+# écraseraient silencieusement ce qui devrait venir des volumes montés
+# par docker-compose.yml.
+
+.env
+.git/
+.gitignore
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Données locales -- doivent venir des volumes montés (docker-compose.yml),
+# jamais figées dans l'image elle-même.
+database/*.db
+logs/
+execution_state/
+
+# Fichiers de développement, inutiles dans l'image
+*.md
+!README.md   # requis par pyproject.toml (champ readme)
+.vscode/
+.idea/

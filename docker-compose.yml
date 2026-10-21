@@ -1,0 +1,29 @@
+# docker-compose.yml
+#
+# Usage :
+#   docker compose up -d --build   # démarre le bot en arrière-plan
+#   docker compose logs -f          # suit les logs en direct
+#   docker compose down             # arrête le bot
+#
+# Simplification architecture (août 2026) : le service ib-gateway (IB
+# Gateway, TWS, VNC) a été retiré -- le robot est désormais crypto
+# uniquement, exécution sur Kraken uniquement (simple client REST, pas
+# besoin d'une instance TWS/Gateway séparée déjà connectée).
+
+services:
+  trading-alert-bot:
+    build: .
+    container_name: trading-alert-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./database:/app/database
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./execution_state:/app/execution_state
+    networks:
+      - trader
+
+networks:
+  trader:

@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crtxict-crypto"
+version = "1.0.0"
+description = "Moteur de trading crypto déterministe (CRT/ICT) : analyse multi-timeframe, exécution Kraken Futures, backtest réaliste et Monte Carlo."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "<Votre nom>" }]
+keywords = ["trading", "crypto", "backtesting", "monte-carlo", "ict", "crt"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+
+# Dépendances réellement importées dans le code (vérifié par recherche
+# des imports sur tout le projet). Bornes supérieures sur les versions
+# majeures dont l'API change de façon incompatible.
+dependencies = [
+    "requests>=2.31",
+    "pydantic>=2.0,<3",
+    "loguru>=0.7",
+    "PyYAML>=6.0",
+    "python-dotenv>=1.0",
+    "APScheduler>=3.11,<4",          # 3.11+ : plus besoin de setuptools ; 4.x casse BlockingScheduler
+    "python-telegram-bot>=20.0,<23", # API asynchrone (v20+)
+    "tzdata>=2024.1",                # requis sur python:3.12-slim pour America/New_York
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+]
+
+[project.urls]
+Repository = "https://github.com/<VOTRE_USER>/CRTxICT_Crypto"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    "backtest*",
+    "collectors*",
+    "config*",
+    "database*",
+    "execution*",
+    "messaging*",
+    "models*",
+    "notifications*",
+    "rules*",
+]
+exclude = ["tests*"]
+namespaces = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

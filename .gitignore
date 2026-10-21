@@ -1,0 +1,64 @@
+# .gitignore
+#
+# Empêche vos secrets réels et vos données locales (bases SQLite, logs,
+# état d'exécution, résultats de backtest) de finir dans l'historique
+# Git -- même supprimé d'un commit ultérieur, un fichier reste lisible
+# dans l'historique. Seul .env.example (sans valeur réelle) est versionné.
+
+# --- Secrets --------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+ib_gateway_settings/
+
+# --- Données locales (viennent des volumes Docker, jamais de Git) ---------
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite
+*.sqlite3
+logs/
+*.log
+execution_state/
+
+# --- Résultats de backtest (générés localement) ---------------------------
+*.csv
+*.parquet
+
+# --- Python ---------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# --- Environnements virtuels ----------------------------------------------
+.venv/
+venv/
+env/
+
+# --- Éditeurs / OS --------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Fichiers personnels / exports temporaires ----------------------------
+# Notes d'infrastructure personnelle (hôte, utilisateur SSH, IP locale).
+COMMANDES_RASPBERRY.txt
+clean_export.zip
+staging_transfer/
+
+# Notes de d�veloppement internes
+CLAUDE.md
