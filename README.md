@@ -42,7 +42,7 @@ efficients, cette stratégie ne procure pas d'**edge** mesurable : les
 gains observés relèvent de la chance et de la tendance de fond du
 marché, pas d'un avantage réel.
 
-Ce constat a motivé un second projet, **NewsRadar_MSSE**, consacré à
+Ce constat a motivé un second projet, [**NewsRadar_MSSE**](https://github.com/Lxboi/NewsRadar_MSSE), consacré à
 une recherche plus approfondie de ce qui pourrait constituer un
 véritable edge sur les marchés.
 

@@ -350,7 +350,7 @@ efficients, elle ne fournit pas d'**edge** mesurable. Les gains
 observés s'expliquent par la chance (quelques trades exceptionnels) et
 par la tendance de fond du marché, pas par un avantage de la méthode.
 
-Ce constat est à l'origine d'un second projet, **NewsRadar_MSSE**, qui
+Ce constat est à l'origine d'un second projet, [**NewsRadar_MSSE**](https://github.com/Lxboi/NewsRadar_MSSE), qui
 approfondit la recherche de ce qui pourrait constituer un véritable
 edge.
 
