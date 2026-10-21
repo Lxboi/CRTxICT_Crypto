@@ -19,6 +19,33 @@ gestion du risque.
 > conseil en investissement. Le trading à effet de levier peut entraîner
 > la perte totale du capital.
 
+> 🧪 **Statut : projet de recherche, non exploité en continu.** Les
+> résultats mesurés sont trop irréguliers pour une utilisation en
+> production. Voir [Objectif et conclusion](#objectif-et-conclusion).
+
+---
+
+## Objectif et conclusion
+
+Ce projet a été construit pour **mettre à l'épreuve, de façon
+rigoureuse, une stratégie de trading discrétionnaire populaire** (CRT et
+concepts ICT), souvent présentée comme « rentable ». Plutôt que de juger
+sur quelques exemples choisis, la méthode a été entièrement codée en
+règles déterministes, puis évaluée avec des coûts réels (frais,
+slippage, levier) et une simulation Monte Carlo.
+
+**Le constat est négatif.** Sur BTC, une année de backtest réaliste
+n'est positive que grâce à deux trades exceptionnels ; sans eux,
+l'année est perdante. L'observation en conditions réelles va dans le
+même sens. Même si les marchés financiers ne sont pas parfaitement
+efficients, cette stratégie ne procure pas d'**edge** mesurable : les
+gains observés relèvent de la chance et de la tendance de fond du
+marché, pas d'un avantage réel.
+
+Ce constat a motivé un second projet, **NewsRadar_MSSE**, consacré à
+une recherche plus approfondie de ce qui pourrait constituer un
+véritable edge sur les marchés.
+
 ---
 
 ## Points clés
@@ -27,7 +54,7 @@ gestion du risque.
   contrat `BaseRule.evaluate(context, config) -> RuleResult`, testée
   isolément.
 - **Cascade de biais multi-timeframe** : Monthly → Weekly → Daily, avec
-  priorité CRT valide > cassure de biais > double purge, et une
+  priorité CRT valide > cassure de biais (double purge en confirmation), et une
   confiance réduite à chaque descente.
 - **Setups CRT nommés et suivis** de la détection jusqu'au dernier
   objectif (TP progressifs, mécanique de Breakeven, invalidation par

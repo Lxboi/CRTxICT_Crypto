@@ -20,6 +20,7 @@ Pour l'installation et l'utilisation, voir le [README](README.md).
 | Fréquence | Un cycle complet toutes les **10 minutes** (`poll_interval_minutes`) |
 | Intelligence artificielle | **Aucune** : toute la décision et tout le message sont déterministes |
 | Déploiement | Docker (ARM64 pour Raspberry Pi, x86_64 pour le cloud) |
+| **Statut** | **Projet de recherche, non exploité en continu** : aucun edge mesurable démontré (voir § 7) |
 
 **Retiré du projet** (version précédente) : gestion de comptes tiers et
 facturation, exécution IBKR, OKX et Binance, actifs Forex/CFD/Futures.
@@ -333,14 +334,34 @@ mais portés presque entièrement par 2 trades exceptionnels ; sans eux,
 l'année aurait été négative (-8,06 R). C'est précisément ce que la
 simulation Monte Carlo sert à mesurer.
 
-**Hors périmètre du backtest** : la ré-entrée TSQ différée des setups
-Weekly et le filtre de coordination des unités de temps (§ 4) ne sont
-pas encore simulés.
+**Conclusion : le robot n'est pas exploité en continu.** Les backtests
+et l'observation en conditions réelles convergent : les résultats
+dépendent d'une poignée de trades exceptionnels et varient fortement
+d'une période à l'autre. Le robot reste utilisable en mode **alertes
+seules** (kill-switch désactivé), mais l'exécution automatique n'est
+pas recommandée.
+
+**Ce que ce projet démontre.** Son objectif était de vérifier
+empiriquement si une stratégie de trading largement présentée comme
+« rentable » (CRT et concepts ICT) procure un avantage réel une fois
+codée sans biais de sélection et évaluée avec des coûts réels. La
+réponse est non : même sur des marchés qui ne sont pas totalement
+efficients, elle ne fournit pas d'**edge** mesurable. Les gains
+observés s'expliquent par la chance (quelques trades exceptionnels) et
+par la tendance de fond du marché, pas par un avantage de la méthode.
+
+Ce constat est à l'origine d'un second projet, **NewsRadar_MSSE**, qui
+approfondit la recherche de ce qui pourrait constituer un véritable
+edge.
 
 ---
 
 ## 8. Limites connues et pistes
 
+- [ ] **Établir la robustesse de la stratégie avant toute remise en
+  service** : backtests sur l'ensemble des actifs et sur plusieurs
+  années, résultats ventilés par unité de temps et par type d'entrée,
+  pour identifier les setups qui ont un avantage réel.
 - [ ] Revalider l'exécution Kraken Futures avec de petites quantités
   (ou l'environnement démo) après la simplification de l'architecture.
 - [ ] Le filtre de coordination ne couvre que Monthly→Weekly et
