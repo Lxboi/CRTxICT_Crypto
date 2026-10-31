@@ -27,24 +27,20 @@ gestion du risque.
 
 ## Objectif et conclusion
 
-Ce projet a été construit pour **mettre à l'épreuve, de façon
-rigoureuse, une stratégie de trading discrétionnaire populaire** (CRT et
-concepts ICT), souvent présentée comme « rentable ». Plutôt que de juger
-sur quelques exemples choisis, la méthode a été entièrement codée en
-règles déterministes, puis évaluée avec des coûts réels (frais,
-slippage, levier) et une simulation Monte Carlo.
+**Objectif** : tester rigoureusement une stratégie de trading
+discrétionnaire populaire (CRT et concepts ICT), souvent présentée comme
+« rentable ». La méthode a été entièrement codée en règles
+déterministes, puis évaluée avec des coûts réels (frais, slippage,
+levier) et une simulation Monte Carlo.
 
-**Le constat est négatif.** Sur BTC, une année de backtest réaliste
-n'est positive que grâce à deux trades exceptionnels ; sans eux,
-l'année est perdante. L'observation en conditions réelles va dans le
-même sens. Même si les marchés financiers ne sont pas parfaitement
-efficients, cette stratégie ne procure pas d'**edge** mesurable : les
-gains observés relèvent de la chance et de la tendance de fond du
-marché, pas d'un avantage réel.
+**Conclusion : aucun edge mesurable.** Sur BTC, une année de backtest
+réaliste n'est positive que grâce à deux trades exceptionnels ; sans
+eux, l'année est perdante. L'observation en conditions réelles va dans
+le même sens : les gains relèvent de la chance et de la tendance de fond
+du marché.
 
-Ce constat a motivé un second projet, [**NewsRadar_MSSE**](https://github.com/Lxboi/NewsRadar_MSSE), consacré à
-une recherche plus approfondie de ce qui pourrait constituer un
-véritable edge sur les marchés.
+Ce constat a mené au projet suivant, [**NewsRadar_MSSE**](https://github.com/Lxboi/NewsRadar_MSSE),
+qui cherche où un véritable edge pourrait se trouver.
 
 ---
 
@@ -87,20 +83,9 @@ flowchart LR
     D --> I
 ```
 
-| Dossier | Rôle |
-|---|---|
-| `collectors/` | Collecte Binance (public, sans clé), Polygon, calendrier macro |
-| `models/` | Modèles de données (bougies, séries, événements macro) |
-| `rules/` | Moteur de règles et orchestration (`decision_engine.py`) |
-| `messaging/` | Construction déterministe des messages Telegram |
-| `database/` | Persistance SQLite, déduplication, suivi TP/SL/Breakeven |
-| `execution/` | Kill-switch, interface d'exchange, client Kraken, sizing |
-| `backtest/` | Simulateur intraday, coûts réels, Monte Carlo, rapports |
-| `tests/` | Suite `pytest` (un fichier par module) |
-
-Le fonctionnement détaillé de la stratégie (cascade de biais, setups CRT,
-entrées, garde-fous, cycle de vie d'un trade), illustré par des schémas,
-est décrit dans [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
+Le fonctionnement détaillé (cascade de biais, setups CRT, entrées,
+garde-fous, cycle de vie d'un trade, organisation du code) est décrit
+avec des schémas dans [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
 
 ## Démarrage rapide
 

@@ -15,17 +15,12 @@ Pour l'installation et l'utilisation, voir le [README](README.md).
 | Marché | Crypto uniquement, contrats perpétuels **Binance Futures USDⓈ-M** |
 | Actifs suivis | BTC, ETH, ADA, TRX, BNB, DOT, SUI (`config/alerts.yaml`) |
 | Données | Binance, endpoints publics (aucune clé requise) |
-| Exécution | **Un seul compte** : le vôtre, sur **Kraken Futures** |
+| Exécution | Un compte personnel sur **Kraken Futures** |
 | Notifications | Telegram (signaux de trading + messages d'administration) |
 | Fréquence | Un cycle complet toutes les **10 minutes** (`poll_interval_minutes`) |
 | Intelligence artificielle | **Aucune** : toute la décision et tout le message sont déterministes |
 | Déploiement | Docker (ARM64 pour Raspberry Pi, x86_64 pour le cloud) |
 | **Statut** | **Projet de recherche, non exploité en continu** : aucun edge mesurable démontré (voir § 7) |
-
-**Retiré du projet** (version précédente) : gestion de comptes tiers et
-facturation, exécution IBKR, OKX et Binance, actifs Forex/CFD/Futures.
-`collectors/polygon.py` reste disponible pour un usage futur, mais
-aucun actif n'y est configuré.
 
 ---
 
@@ -334,25 +329,12 @@ mais portés presque entièrement par 2 trades exceptionnels ; sans eux,
 l'année aurait été négative (-8,06 R). C'est précisément ce que la
 simulation Monte Carlo sert à mesurer.
 
-**Conclusion : le robot n'est pas exploité en continu.** Les backtests
-et l'observation en conditions réelles convergent : les résultats
-dépendent d'une poignée de trades exceptionnels et varient fortement
-d'une période à l'autre. Le robot reste utilisable en mode **alertes
+**Conclusion : aucun edge mesurable, le robot n'est pas exploité en
+continu.** Backtests et observation en conditions réelles convergent :
+les résultats dépendent d'une poignée de trades exceptionnels et de la
+tendance de fond du marché. Le robot reste utilisable en mode **alertes
 seules** (kill-switch désactivé), mais l'exécution automatique n'est
-pas recommandée.
-
-**Ce que ce projet démontre.** Son objectif était de vérifier
-empiriquement si une stratégie de trading largement présentée comme
-« rentable » (CRT et concepts ICT) procure un avantage réel une fois
-codée sans biais de sélection et évaluée avec des coûts réels. La
-réponse est non : même sur des marchés qui ne sont pas totalement
-efficients, elle ne fournit pas d'**edge** mesurable. Les gains
-observés s'expliquent par la chance (quelques trades exceptionnels) et
-par la tendance de fond du marché, pas par un avantage de la méthode.
-
-Ce constat est à l'origine d'un second projet, [**NewsRadar_MSSE**](https://github.com/Lxboi/NewsRadar_MSSE), qui
-approfondit la recherche de ce qui pourrait constituer un véritable
-edge.
+pas recommandée. Suite : [**NewsRadar_MSSE**](https://github.com/Lxboi/NewsRadar_MSSE).
 
 ---
 
